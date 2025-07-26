@@ -82,8 +82,15 @@ app.get('/messages', async (req, res) => {
     }
 });
 
-app.get('/users', async (req, res) => {
-    app.post('/messages', async (req, res) => {
+app.get('/users', async (req, res) => {try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error('Error occurred:', error);
+        res.status(500).send('Internal Server Error');
+    }});
+
+app.post('/messages', async (req, res) => {
         try {
             const { sender, receiver, message } = req.body;
             if (!sender || !receiver || !message) {
@@ -108,14 +115,6 @@ app.get('/users', async (req, res) => {
             res.status(500).send('Internal Server Error');
         }
     });
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (error) {
-        console.error('Error occurred:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
 
 app.listen(port, () => {
   console.log(`Chat app listening on port ${port}`)

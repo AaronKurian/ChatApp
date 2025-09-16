@@ -3,7 +3,8 @@ import { FaRegUser } from "react-icons/fa";
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { IoEye, IoEyeOff } from 'react-icons/io5'
 
-const API_URL = 'http://localhost:3000'
+const API_URL = process.env.REACT_APP_API_URL
+console.log(API_URL)
 
 function LoginPage({ setUser }) {
   const [username, setUsername] = useState('')
